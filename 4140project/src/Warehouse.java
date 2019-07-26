@@ -69,29 +69,31 @@ public class Warehouse {
 			front = "";
 			ResultSet rsf = stmtFront.executeQuery(front);
 			while(rsX.next() && rsY.next() && rsZ.next()){
-				int partIdX = rsX.getInt("PartID");//get PartId from database
-				String wIdX = rsX.getString("warehouseID");//get warehouseId from databse
-				int amountX = rsX.getInt("current");//get current amount from databse
+				int partIdX = rsX.getInt("PartID");//get PartId from database X
+				String wIdX = rsX.getString("warehouseID");//get warehouseId from databse X
+				int amountX = rsX.getInt("current");//get current amount from databse X
 				
-				int partIdY = rsY.getInt("PartID");//get PartId from database
-				String wIdY = rsY.getString("warehouseID");//get warehouseId from databse
-				int amountY = rsX.getInt("current");//get current amount from databse
+				int partIdY = rsY.getInt("PartID");//get PartId from database Y
+				String wIdY = rsY.getString("warehouseID");//get warehouseId from databse Y
+				int amountY = rsX.getInt("current");//get current amount from databse Y
 				
-				int partIdZ = rsZ.getInt("PartID");//get PartId from database
-				String wIdZ = rsZ.getString("warehouseID");//get warehouseId from databse
-				int amountZ = rsZ.getInt("current");//get current amount from databse
+				int partIdZ = rsZ.getInt("PartID");//get PartId from database Z
+				String wIdZ = rsZ.getString("warehouseID");//get warehouseId from databse Z
+				int amountZ = rsZ.getInt("current");//get current amount from databse Z
 				
 				if(worder.getPid() == partIdX && worder.getPid() == partIdY && worder.getPid() == partIdZ){
 					int amountTotal = amountX + amountY + amountZ;
-					if(worder.getRamount() <= amountTotal){
-						//order amount <= stock amount can be processed
+					if(worder.getRamount() <= amountTotal){ //order amount <= stock amount can be processed
 						if(worder.getRamount() < amountX){
+							//If the request amount can totally take from warehouse X, then only reduce prodcut amount in X
 							pstmtX.setInt(1, amountX - worder.getRamount());
 							pstmtX.setInt(2, partIdX);
 							pstmtX.setString(3, wIdX);
 							pstmtX.executeUpdate();
 						}
 						else if(worder.getRamount() > amountX && worder.getRamount() <= (amountX+amountY)){
+							//If the request amount is larger than X current stock, but smaller than total stock of X and Y, then first
+							//take all stock from X then rest of amount take from Y
 							int temp; 
 							temp = worder.getRamount() - amountX;
 							pstmtX.setInt(1, 0);
@@ -104,6 +106,7 @@ public class Warehouse {
 							pstmtY.executeUpdate();
 						}
 						else if(worder.getRamount() > (amountX + amountY) && worder.getRamount() <= (amountX + amountY + amountZ)){
+							//if the request amount is larger than X and Y, then first take from X and Y then rest of amount take from Z.
 							int temp;
 							temp = worder.getRamount() - (amountX + amountY);
 							pstmtX.setInt(1, 0);
@@ -120,14 +123,17 @@ public class Warehouse {
 							pstmtZ.executeUpdate();
 						}
 						else{
+							//This may not happen ever, but in case.
 							System.out.print("Error or insufficient inventory");
 						}
 					}
 					else{
+						//If order amount is larger than total current of X, Y and Z. 
 						System.out.print("Insufficient inventory, please reduce the order quantity or cancel the order");
 					}
 				}
 				else{
+					//Prodcut Id error
 					System.out.print("Product ID not match, please check the product.");
 				}
 				
