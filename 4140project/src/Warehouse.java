@@ -29,7 +29,6 @@ public class Warehouse {
 	public static void main(String args[]) throws ClassNotFoundException{
 		Connection conBackX = null;
 		Statement stmtBackX = null;
-		
 		Connection conBackY = null;
 		Statement stmtBackY = null;
 		
@@ -43,23 +42,26 @@ public class Warehouse {
 			conBackX = DriverManager.getConnection(UrlBackX,UserBackX,PasswordBackX);
 			stmtBackX = conBackX.createStatement();
 			String backX;
-			backX = "SELECT partID, warehouseID,current FROM Stock";
+			backX = "SELECT * FROM Stock";
 			ResultSet rsX = stmtBackX.executeQuery(backX);
-			
+			PreparedStatement pstmtX = conBackX.prepareStatement("UPDATE Stock SET current = ? WHERE PartID = ?, warehouseID = ?");
+
 			Class.forName(DriverBackY);
 			conBackY = DriverManager.getConnection(UrlBackY,UserBackY,PasswordBackY);
 			stmtBackY = conBackY.createStatement();
 			String backY;
-			backY = "SELECT partID, warehouseID,current FROM Stock";
+			backY = "SELECT * FROM Stock";
 			ResultSet rsY = stmtBackY.executeQuery(backY);
-			
+			PreparedStatement pstmtY = conBackY.prepareStatement("UPDATE Stock SET current = ? WHERE PartID = ?, warehouseID = ?");
+
 			Class.forName(DriverBackZ);
 			conBackZ = DriverManager.getConnection(UrlBackZ,UserBackZ,PasswordBackZ);
 			stmtBackZ = conBackZ.createStatement();
 			String backZ;
-			backZ = "SELECT partID, warehouseID,current FROM Stock";
+			backZ = "SELECT * FROM Stock";
 			ResultSet rsZ = stmtBackZ.executeQuery(backZ);
-			
+			PreparedStatement pstmtZ = conBackZ.prepareStatement("UPDATE Stock SET current = ? WHERE PartID = ?, warehouseID = ?");
+
 			Class.forName(DriverFront);
 			conFront = DriverManager.getConnection(UrlFront,UserFront,PasswordFront);
 			stmtFront = conFront.createStatement();
@@ -79,15 +81,50 @@ public class Warehouse {
 				String wIdZ = rsZ.getString("warehouseID");//get warehouseId from databse
 				int amountZ = rsZ.getInt("current");//get current amount from databse
 				
-				if(worder.getPid() == partIdX){
-					if(worder.getRamount() < amountX){
-						//the order can be process.
-					}
-					else if(worder.getRamount() == amountX){
-						//the order can be process.
+				if(worder.getPid() == partIdX && worder.getPid() == partIdY && worder.getPid() == partIdZ){
+					int amountTotal = amountX + amountY + amountZ;
+					if(worder.getRamount() <= amountTotal){
+						//order amount <= stock amount can be processed
+						if(worder.getRamount() < amountX){
+							pstmtX.setInt(1, amountX - worder.getRamount());
+							pstmtX.setInt(2, partIdX);
+							pstmtX.setString(3, wIdX);
+							pstmtX.executeUpdate();
+						}
+						else if(worder.getRamount() > amountX && worder.getRamount() <= (amountX+amountY)){
+							int temp; 
+							temp = worder.getRamount() - amountX;
+							pstmtX.setInt(1, 0);
+							pstmtX.setInt(2, partIdX);
+							pstmtX.setString(3, wIdX);
+							pstmtY.setInt(1, amountY - temp);
+							pstmtY.setInt(2, partIdY);
+							pstmtY.setString(3, wIdY);
+							pstmtX.executeUpdate();
+							pstmtY.executeUpdate();
+						}
+						else if(worder.getRamount() > (amountX + amountY) && worder.getRamount() <= (amountX + amountY + amountZ)){
+							int temp;
+							temp = worder.getRamount() - (amountX + amountY);
+							pstmtX.setInt(1, 0);
+							pstmtX.setInt(2, partIdX);
+							pstmtX.setString(3, wIdX);
+							pstmtY.setInt(1, 0);
+							pstmtY.setInt(2, partIdY);
+							pstmtY.setString(3, wIdY);
+							pstmtZ.setInt(1, amountZ - temp);
+							pstmtZ.setInt(2, partIdZ);
+							pstmtZ.setString(3, wIdZ);
+							pstmtX.executeUpdate();
+							pstmtY.executeUpdate();
+							pstmtZ.executeUpdate();
+						}
+						else{
+							System.out.print("Error or insufficient inventory");
+						}
 					}
 					else{
-						//the order can not process, not enought product amount.
+						System.out.print("Insufficient inventory, please reduce the order quantity or cancel the order");
 					}
 				}
 				else{
@@ -98,6 +135,12 @@ public class Warehouse {
 			rsX.close();
 			stmtBackX.close();
 			conBackX.close();
+			rsY.close();
+			stmtBackY.close();
+			conBackY.close();
+			rsZ.close();
+			stmtBackZ.close();
+			conBackZ.close();
 		}
 		catch(SQLException sqle){
 			sqle.printStackTrace();
