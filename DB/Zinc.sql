@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS `Part` (
   `partName` VARCHAR(45) NOT NULL,
   `partDescription` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`partID`),
-  UNIQUE INDEX `partID_UNIQUE` (`partID` ASC) VISIBLE);
+  UNIQUE INDEX `partID_UNIQUE` (`partID` ASC));
 
 
 -- -----------------------------------------------------
@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS `Warehouse` (
   `warehouseID` INT NOT NULL,
   `warehouseName` VARCHAR(45) NOT NULL,
   `warehouseLocation` VARCHAR(45) NOT NULL,
-  UNIQUE INDEX `warehouseID_UNIQUE` (`warehouseID` ASC) VISIBLE,
+  UNIQUE INDEX `warehouseID_UNIQUE` (`warehouseID` ASC),
   PRIMARY KEY (`warehouseID`));
 
 
@@ -29,10 +29,10 @@ CREATE TABLE IF NOT EXISTS `Warehouse` (
 CREATE TABLE IF NOT EXISTS `Stock` (
   `current` INT NOT NULL,
   `minimum` VARCHAR(45) NOT NULL,
-  `partID` INT NOT NULL,
+  `partID` VARCHAR(45) NOT NULL,
   `warehouseID` INT NOT NULL,
   PRIMARY KEY (`partID`, `warehouseID`),
-  INDEX `fk_Stock_Warehouse1_idx` (`warehouseID` ASC) VISIBLE,
+  INDEX `fk_Stock_Warehouse1_idx` (`warehouseID` ASC),
   CONSTRAINT `fk_Stock_Part1`
     FOREIGN KEY (`partID`)
     REFERENCES `mydb`.`Part` (`partID`)
