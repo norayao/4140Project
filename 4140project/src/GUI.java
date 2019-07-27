@@ -14,7 +14,7 @@ public class GUI {
     static final String DB_URL = "jdbc:mysql://localhost:3306/Ass4";
     static final String USER = "root";
     static final String PASS = "Zy123456";
-    public static Worder worder;
+    //public static Worder worder;
     public static void main(String args[]) {
         
 		JFrame myframe = new JFrame("Main Page");      // main frame
@@ -59,43 +59,49 @@ public class GUI {
                 JTextField testPartCreate1 = new JTextField(48);
                 pane2Create.add(labelCreate1); 
                 pane2Create.add(testPartCreate1);
-                String CompanyId = testPartCreate1.getText().toString();
-                worder.setCid(CompanyId);
+                //String CompanyId = testPartCreate1.getText().toString();
+                //worder.setCid(CompanyId);
                 JLabel labelCreate2 = new JLabel("Enter the Company Name:");
                 JTextField testPartCreate2 = new JTextField(48);
                 pane2Create.add(labelCreate2); 
                 pane2Create.add(testPartCreate2);
-                String CompanyName = testPartCreate2.getText().toString();
-                worder.setCName(CompanyName);
+                //String CompanyName = testPartCreate2.getText().toString();
+                //worder.setCName(CompanyName);
                 JLabel labelCreate3 = new JLabel("Enter the Product ID that you want:");
                 JTextField testPartCreate3 = new JTextField(48);
                 pane2Create.add(labelCreate3); 
                 pane2Create.add(testPartCreate3);
-                String ProductId = testPartCreate3.getText().toString();
-                worder.setPid(Integer.parseInt(ProductId));
+                //String ProductId = testPartCreate3.getText().toString();
+                //worder.setPid(ProductId);
                 JLabel labelCreate4 = new JLabel("Enter the amount of the Product that you want to buy:");
                 JTextField testPartCreate4 = new JTextField(48);
                 pane2Create.add(labelCreate4); 
                 pane2Create.add(testPartCreate4);
-                String ProductAmount = testPartCreate4.getText().toString();
-                worder.setPamount(Integer.parseInt(ProductAmount));
+                //String ProductAmount = testPartCreate4.getText().toString();
+                //worder.setPamount(Integer.parseInt(ProductAmount));
                 PhoneScc.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
                     	String infor="";
                     	Connection conn = null;
                         Statement stmt = null;
                         try{
-                            Class.forName(JDBC_DRIVER);
+                        	Class.forName(JDBC_DRIVER);
                             conn = DriverManager.getConnection(DB_URL,USER,PASS);
                             stmt = conn.createStatement();
+
                             String sql;
-                            sql = "INSERT INTO phoneNumber_249 (id_249, phoneNum_249)" + 
-                            		"VALUES ('"+testPartCreate1.getText()+"', '"+testPartCreate2.getText()+"');";   
-                            PreparedStatement posted = conn.prepareStatement(sql);                           
-                            posted.executeUpdate();                          
-                            posted.close();
+                            sql = "INSERT INTO Inovice (invoiceID) " + "VALUES ('" +testPartCreate3.getText()+"')";
+
+                            
+                            //sql = "INSERT INTO phoneNumber_249 (id_249, phoneNum_249)" + 
+                            		//"VALUES ('"+testPartCreate1.getText()+"', '"+testPartCreate2.getText()+"');";   
+                            PreparedStatement pstmt = conn.prepareStatement(sql);
+                            
+                            pstmt.executeUpdate();
+                            
+                            pstmt.close();
                             stmt.close();
-                            conn.close();    
+                            conn.close();     
                         }catch(SQLException se){
                             se.printStackTrace();
                         }catch(Exception e1){

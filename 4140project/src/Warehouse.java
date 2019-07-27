@@ -69,7 +69,7 @@ public class Warehouse {
 			conFront = DriverManager.getConnection(UrlFront,UserFront,PasswordFront);
 			stmtFront = conFront.createStatement();
 			String front;
-			front = "";
+			front = "SELECT * FROM Line";
 			ResultSet rsf = stmtFront.executeQuery(front);
 			PreparedStatement pstmtF = conBackZ.prepareStatement("UPDATE Line SET partStatus = ? WHERE partID = ?");
 
@@ -86,6 +86,8 @@ public class Warehouse {
 				int wIdZ = rsZ.getInt("warehouseID");//get warehouseId from databse Z
 				int amountZ = rsZ.getInt("current");//get current amount from databse Z
 				
+				String partIdF = rsf.getString("partID");
+				int partQty = rsf.getInt("partQuantity");
 				if(worder.getPid() == partIdX && worder.getPid() == partIdY && worder.getPid() == partIdZ){
 					int amountTotal = amountX + amountY + amountZ;
 					if(worder.getRamount() <= amountTotal){ //order amount <= stock amount can be processed
