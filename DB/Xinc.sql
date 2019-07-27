@@ -9,8 +9,7 @@ CREATE TABLE IF NOT EXISTS `Part` (
   `partID` VARCHAR(45) NOT NULL,
   `partName` VARCHAR(45) NOT NULL,
   `partDescription` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`partID`),
-  UNIQUE INDEX `partID_UNIQUE` (`partID` ASC));
+  PRIMARY KEY (`partID`));
 
 insert into Part values('ISO-30001','xinc','skfhsh');
 
@@ -21,10 +20,10 @@ CREATE TABLE IF NOT EXISTS `Warehouse` (
   `warehouseID` INT NOT NULL,
   `warehouseName` VARCHAR(45) NOT NULL,
   `warehouseLocation` VARCHAR(45) NOT NULL,
-  UNIQUE INDEX `warehouseID_UNIQUE` (`warehouseID` ASC),
   PRIMARY KEY (`warehouseID`));
 
 insert into Warehouse values(40001,'x','halifax');
+
 -- -----------------------------------------------------
 -- Table `Stock`
 -- -----------------------------------------------------
