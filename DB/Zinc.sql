@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS `Warehouse` (
 CREATE TABLE IF NOT EXISTS `Stock` (
   `current` INT NOT NULL,
   `minimum` VARCHAR(45) NOT NULL,
-  `partID` INT NOT NULL,
+  `partID` VARCHAR(45) NOT NULL,
   `warehouseID` INT NOT NULL,
   PRIMARY KEY (`partID`, `warehouseID`),
   INDEX `fk_Stock_Warehouse1_idx` (`warehouseID` ASC) VISIBLE,
