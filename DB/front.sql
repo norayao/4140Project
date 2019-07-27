@@ -14,28 +14,27 @@ CREATE TABLE IF NOT EXISTS Customer (
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`Invoice`
+-- Table `Invoice`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS Invoice (
   invoiceID INT NOT NULL,
   invoiceTime DATETIME NOT NULL,
   customerID INT NOT NULL,
   PRIMARY KEY (`invoiceID`),
-  INDEX `fk_Invoice_Customer_idx` (`customerID` ASC) VISIBLE,
-  UNIQUE INDEX `invoiceID_UNIQUE` (`invoiceID` ASC) VISIBLE,
-  UNIQUE INDEX `customerID_UNIQUE` (`customerID` ASC) VISIBLE,
+  INDEX `fk_Invoice_Customer_idx` (`customerID` ASC),
+  UNIQUE INDEX `invoiceID_UNIQUE` (`invoiceID` ASC),
+  UNIQUE INDEX `customerID_UNIQUE` (`customerID` ASC),
   CONSTRAINT `fk_Invoice_Customer`
     FOREIGN KEY (`customerID`)
-    REFERENCES `mydb`.`Customer` (`customerID`)
+    REFERENCES `Customer` (`customerID`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+    ON UPDATE NO ACTION);
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`Line`
+-- Table `Line`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`Line` (
+CREATE TABLE IF NOT EXISTS `Line` (
   `lineID` INT NOT NULL,
   `lineNo` INT NOT NULL,
   `linetTimestamp` VARCHAR(45) NOT NULL,
@@ -44,15 +43,13 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Line` (
   `partCompany` VARCHAR(45) NULL,
   `invoiceID` INT NOT NULL,
   PRIMARY KEY (`lineID`, `invoiceID`),
-  UNIQUE INDEX `lineID_UNIQUE` (`lineID` ASC) VISIBLE,
-  INDEX `invoiceID_idx` (`invoiceID` ASC) VISIBLE,
+  UNIQUE INDEX `lineID_UNIQUE` (`lineID` ASC),
+  INDEX `invoiceID_idx` (`invoiceID` ASC),
   CONSTRAINT `invoiceID`
     FOREIGN KEY (`invoiceID`)
-    REFERENCES `mydb`.`Invoice` (`invoiceID`)
+    REFERENCES `Invoice` (`invoiceID`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
+    ON UPDATE NO ACTION);
 
 
 
