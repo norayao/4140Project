@@ -1,3 +1,4 @@
+
 CREATE SCHEMA IF NOT EXISTS Zinc DEFAULT CHARACTER SET utf8;
 USE Zinc;
 
@@ -35,11 +36,11 @@ CREATE TABLE IF NOT EXISTS `Stock` (
   INDEX `fk_Stock_Warehouse1_idx` (`warehouseID` ASC),
   CONSTRAINT `fk_Stock_Part1`
     FOREIGN KEY (`partID`)
-    REFERENCES `mydb`.`Part` (`partID`)
+    REFERENCES `Part` (`partID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Stock_Warehouse1`
     FOREIGN KEY (`warehouseID`)
-    REFERENCES `mydb`.`Warehouse` (`warehouseID`)
+    REFERENCES `Warehouse` (`warehouseID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
