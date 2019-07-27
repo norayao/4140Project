@@ -40,7 +40,7 @@ CREATE TABLE IF NOT EXISTS `Line` (
   `linetTimestamp` VARCHAR(45) NOT NULL,
   `partID` VARCHAR(10) NOT NULL,
   `partQuantity` INT NOT NULL,
-  `partCompany` VARCHAR(45) NULL,
+  `partStatus` BOOLEAN NULL,
   `invoiceID` INT NOT NULL,
   PRIMARY KEY (`lineID`, `invoiceID`),
   UNIQUE INDEX `lineID_UNIQUE` (`lineID` ASC),
