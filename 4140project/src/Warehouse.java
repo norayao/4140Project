@@ -6,27 +6,30 @@ public class Warehouse {
 	private static Worder worder;
 	
 	private static GUI gui;
-	static final String DriverBackX ="";
+	static final String DriverBackX ="com.mysql.jdbc.Driver";
 	static final String UrlBackX = "";
 	static final String UserBackX = "";
 	static final String PasswordBackX = "";
 	
-	static final String DriverBackY ="";
+	static final String DriverBackY ="com.mysql.jdbc.Driver";
 	static final String UrlBackY = "";
 	static final String UserBackY = "";
 	static final String PasswordBackY = "";
 	
-	static final String DriverBackZ ="";
+	static final String DriverBackZ ="com.mysql.jdbc.Driver";
 	static final String UrlBackZ = "";
 	static final String UserBackZ = "";
 	static final String PasswordBackZ = "";
 	
-	static final String DriverFront ="";
+	static final String DriverFront ="com.mysql.jdbc.Driver";
 	static final String UrlFront = "";
 	static final String UserFront = "";
 	static final String PasswordFront = "";
 	
 	public static void main(String args[]) throws ClassNotFoundException{
+		
+	}
+	public void DBoperation(){
 		Connection conBackX = null;
 		Statement stmtBackX = null;
 		Connection conBackY = null;
@@ -70,15 +73,15 @@ public class Warehouse {
 			ResultSet rsf = stmtFront.executeQuery(front);
 			while(rsX.next() && rsY.next() && rsZ.next()){
 				int partIdX = rsX.getInt("PartID");//get PartId from database X
-				String wIdX = rsX.getString("warehouseID");//get warehouseId from databse X
+				int wIdX = rsX.getInt("warehouseID");//get warehouseId from databse X
 				int amountX = rsX.getInt("current");//get current amount from databse X
 				
 				int partIdY = rsY.getInt("PartID");//get PartId from database Y
-				String wIdY = rsY.getString("warehouseID");//get warehouseId from databse Y
+				int wIdY = rsY.getInt("warehouseID");//get warehouseId from databse Y
 				int amountY = rsX.getInt("current");//get current amount from databse Y
 				
 				int partIdZ = rsZ.getInt("PartID");//get PartId from database Z
-				String wIdZ = rsZ.getString("warehouseID");//get warehouseId from databse Z
+				int wIdZ = rsZ.getInt("warehouseID");//get warehouseId from databse Z
 				int amountZ = rsZ.getInt("current");//get current amount from databse Z
 				
 				if(worder.getPid() == partIdX && worder.getPid() == partIdY && worder.getPid() == partIdZ){
@@ -88,7 +91,7 @@ public class Warehouse {
 							//If the request amount can totally take from warehouse X, then only reduce prodcut amount in X
 							pstmtX.setInt(1, amountX - worder.getRamount());
 							pstmtX.setInt(2, partIdX);
-							pstmtX.setString(3, wIdX);
+							pstmtX.setInt(3, wIdX);
 							pstmtX.executeUpdate();
 						}
 						else if(worder.getRamount() > amountX && worder.getRamount() <= (amountX+amountY)){
@@ -98,10 +101,10 @@ public class Warehouse {
 							temp = worder.getRamount() - amountX;
 							pstmtX.setInt(1, 0);
 							pstmtX.setInt(2, partIdX);
-							pstmtX.setString(3, wIdX);
+							pstmtX.setInt(3, wIdX);
 							pstmtY.setInt(1, amountY - temp);
 							pstmtY.setInt(2, partIdY);
-							pstmtY.setString(3, wIdY);
+							pstmtY.setInt(3, wIdY);
 							pstmtX.executeUpdate();
 							pstmtY.executeUpdate();
 						}
@@ -111,13 +114,13 @@ public class Warehouse {
 							temp = worder.getRamount() - (amountX + amountY);
 							pstmtX.setInt(1, 0);
 							pstmtX.setInt(2, partIdX);
-							pstmtX.setString(3, wIdX);
+							pstmtX.setInt(3, wIdX);
 							pstmtY.setInt(1, 0);
 							pstmtY.setInt(2, partIdY);
-							pstmtY.setString(3, wIdY);
+							pstmtY.setInt(3, wIdY);
 							pstmtZ.setInt(1, amountZ - temp);
 							pstmtZ.setInt(2, partIdZ);
-							pstmtZ.setString(3, wIdZ);
+							pstmtZ.setInt(3, wIdZ);
 							pstmtX.executeUpdate();
 							pstmtY.executeUpdate();
 							pstmtZ.executeUpdate();
