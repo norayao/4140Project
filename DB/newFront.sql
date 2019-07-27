@@ -2,7 +2,7 @@ CREATE SCHEMA IF NOT EXISTS front DEFAULT CHARACTER SET utf8;
 USE front;
 
 -- -----------------------------------------------------
--- Table `mydb`.`Customer`
+-- Table `Customer`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS Customer (
   customerID INT NOT NULL,
