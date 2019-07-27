@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS `Part` (
   `partDescription` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`partID`),
   UNIQUE INDEX `partID_UNIQUE` (`partID` ASC));
-
+insert into Part values('ISO-30001','yinc','sleiwe');
 
 -- -----------------------------------------------------
 -- Table `Warehouse`
@@ -23,7 +23,7 @@ CREATE TABLE IF NOT EXISTS `Warehouse` (
   UNIQUE INDEX `warehouseID_UNIQUE` (`warehouseID` ASC),
   PRIMARY KEY (`warehouseID`));
 
-
+insert into Warehouse values(40001,'y','dartmouth');
 -- -----------------------------------------------------
 -- Table `Stock`
 -- -----------------------------------------------------
@@ -44,3 +44,5 @@ CREATE TABLE IF NOT EXISTS `Stock` (
     REFERENCES `Warehouse` (`warehouseID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
+
+insert into Stock values(30,5,'ISO-30001',40001);
