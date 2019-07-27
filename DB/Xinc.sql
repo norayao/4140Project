@@ -17,7 +17,7 @@ insert into Part values('ISO-30001','xinc','skfhsh');
 -- Table `Warehouse`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `Warehouse` (
-  `warehouseID` INT NOT NULL,
+  `warehouseID` INT NOT NULL AUTO_INCREMENT,
   `warehouseName` VARCHAR(45) NOT NULL,
   `warehouseLocation` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`warehouseID`));
