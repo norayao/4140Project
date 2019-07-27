@@ -10,8 +10,6 @@ CREATE TABLE IF NOT EXISTS Customer (
   customerContact VARCHAR(10) NOT NULL,
   customerAddress VARCHAR(99) NOT NULL,
   PRIMARY KEY (customerID),
-  UNIQUE INDEX customerID_UNIQUE (customerID ASC));
-
 insert into Customer values(10001,'Yihong Yao','989-8888','2393 robie st');
 
 
@@ -26,9 +24,6 @@ CREATE TABLE IF NOT EXISTS Invoice (
   partQuantity INT NOT NULL,
   partStatus BOOLEAN NULL,
   PRIMARY KEY (`invoiceID`),
-  INDEX `fk_Invoice_Customer_idx` (`customerID` ASC),
-  UNIQUE INDEX `invoiceID_UNIQUE` (`invoiceID` ASC),
-  UNIQUE INDEX `customerID_UNIQUE` (`customerID` ASC),
   CONSTRAINT `fk_Invoice_Customer`
     FOREIGN KEY (`customerID`)
     REFERENCES `Customer` (`customerID`)
