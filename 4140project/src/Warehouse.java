@@ -71,16 +71,18 @@ public class Warehouse {
 			String front;
 			front = "";
 			ResultSet rsf = stmtFront.executeQuery(front);
+			PreparedStatement pstmtF = conBackZ.prepareStatement("UPDATE Line SET partStatus = ? WHERE partID = ?");
+
 			while(rsX.next() && rsY.next() && rsZ.next()){
-				int partIdX = rsX.getInt("PartID");//get PartId from database X
+				String partIdX = rsX.getString("PartID");//get PartId from database X
 				int wIdX = rsX.getInt("warehouseID");//get warehouseId from databse X
 				int amountX = rsX.getInt("current");//get current amount from databse X
 				
-				int partIdY = rsY.getInt("PartID");//get PartId from database Y
+				String partIdY = rsY.getString("PartID");//get PartId from database Y
 				int wIdY = rsY.getInt("warehouseID");//get warehouseId from databse Y
 				int amountY = rsX.getInt("current");//get current amount from databse Y
 				
-				int partIdZ = rsZ.getInt("PartID");//get PartId from database Z
+				String partIdZ = rsZ.getString("PartID");//get PartId from database Z
 				int wIdZ = rsZ.getInt("warehouseID");//get warehouseId from databse Z
 				int amountZ = rsZ.getInt("current");//get current amount from databse Z
 				
@@ -90,9 +92,12 @@ public class Warehouse {
 						if(worder.getRamount() < amountX){
 							//If the request amount can totally take from warehouse X, then only reduce prodcut amount in X
 							pstmtX.setInt(1, amountX - worder.getRamount());
-							pstmtX.setInt(2, partIdX);
+							pstmtX.setString(2, partIdX);
 							pstmtX.setInt(3, wIdX);
 							pstmtX.executeUpdate();
+							pstmtF.setString(1, "Ture");
+							pstmtF.executeUpdate();
+			
 						}
 						else if(worder.getRamount() > amountX && worder.getRamount() <= (amountX+amountY)){
 							//If the request amount is larger than X current stock, but smaller than total stock of X and Y, then first
@@ -100,44 +105,54 @@ public class Warehouse {
 							int temp; 
 							temp = worder.getRamount() - amountX;
 							pstmtX.setInt(1, 0);
-							pstmtX.setInt(2, partIdX);
+							pstmtX.setString(2, partIdX);
 							pstmtX.setInt(3, wIdX);
 							pstmtY.setInt(1, amountY - temp);
-							pstmtY.setInt(2, partIdY);
+							pstmtY.setString(2, partIdY);
 							pstmtY.setInt(3, wIdY);
 							pstmtX.executeUpdate();
 							pstmtY.executeUpdate();
+							pstmtF.setString(1, "Ture");
+							pstmtF.executeUpdate();
 						}
 						else if(worder.getRamount() > (amountX + amountY) && worder.getRamount() <= (amountX + amountY + amountZ)){
 							//if the request amount is larger than X and Y, then first take from X and Y then rest of amount take from Z.
 							int temp;
 							temp = worder.getRamount() - (amountX + amountY);
 							pstmtX.setInt(1, 0);
-							pstmtX.setInt(2, partIdX);
+							pstmtX.setString(2, partIdX);
 							pstmtX.setInt(3, wIdX);
 							pstmtY.setInt(1, 0);
-							pstmtY.setInt(2, partIdY);
+							pstmtY.setString(2, partIdY);
 							pstmtY.setInt(3, wIdY);
 							pstmtZ.setInt(1, amountZ - temp);
-							pstmtZ.setInt(2, partIdZ);
+							pstmtZ.setString(2, partIdZ);
 							pstmtZ.setInt(3, wIdZ);
 							pstmtX.executeUpdate();
 							pstmtY.executeUpdate();
 							pstmtZ.executeUpdate();
+							pstmtF.setString(1, "Ture");
+							pstmtF.executeUpdate();
 						}
 						else{
 							//This may not happen ever, but in case.
 							System.out.print("Error or insufficient inventory");
+							pstmtF.setString(1, "False");
+							pstmtF.executeUpdate();
 						}
 					}
 					else{
 						//If order amount is larger than total current of X, Y and Z. 
 						System.out.print("Insufficient inventory, please reduce the order quantity or cancel the order");
+						pstmtF.setString(1, "False");
+						pstmtF.executeUpdate();
 					}
 				}
 				else{
 					//Prodcut Id error
 					System.out.print("Product ID not match, please check the product.");
+					pstmtF.setString(1, "False");
+					pstmtF.executeUpdate();
 				}
 				
 			}

@@ -2,11 +2,10 @@ import java.sql.*;
 
 public class Worder {
 
-	private int ProductId,OrderId,Ramount,PamountTotal,PamountX,PamountY,PamountZ;
-	private String CompanyId,CompanyName;
+	private int OrderId,Ramount,PamountTotal,PamountX,PamountY,PamountZ;
+	private String CompanyId,CompanyName,ProductId;
 	
-	
-	public Worder(int Pid, String Cid, int PamountTotal, int Ramount, int OrderId, String CompanyName){
+	public Worder(String Pid, String Cid, int PamountTotal, int Ramount, int OrderId, String CompanyName){
 		ProductId = Pid;
 		CompanyId = Cid;
 		this.PamountTotal = PamountTotal;
@@ -14,11 +13,12 @@ public class Worder {
 		this.OrderId = OrderId;
 		this.CompanyName = CompanyName;
 		
+		
 	}
-	public int getPid(){
+	public String getPid(){
 		return ProductId;
 	}
-	public void setPid(int Pid){
+	public void setPid(String Pid){
 		ProductId = Pid;
 	}
 	
