@@ -5,7 +5,7 @@ USE front;
 -- Table `Customer`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS Customer (
-  customerID INT NOT NULL,
+  customerID INT NOT NULL AUTO_INCREMENT,
   customerName VARCHAR(45) NOT NULL,
   customerContact VARCHAR(10) NOT NULL,
   customerAddress VARCHAR(99) NOT NULL,
@@ -17,7 +17,7 @@ insert into Customer values(10001,'Yihong Yao','989-8888','2393 robie st');
 -- Table `Invoice`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS Invoice (
-  invoiceID INT NOT NULL,
+  invoiceID INT NOT NULL AUTO_INCREMENT,
   invoiceTime DATETIME NOT NULL,
   customerID INT NOT NULL,
   partID VARCHAR(10) NOT NULL,
