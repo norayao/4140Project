@@ -5,7 +5,7 @@ USE Yinc;
 -- Table `Part`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `Part` (
-  `partID` INT NOT NULL,
+  `partID` VARCHAR(45) NOT NULL,
   `partName` VARCHAR(45) NOT NULL,
   `partDescription` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`partID`),
