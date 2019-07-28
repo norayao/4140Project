@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS Customer (
   customerName VARCHAR(45) NOT NULL,
   customerContact VARCHAR(10) NOT NULL,
   customerAddress VARCHAR(99) NOT NULL,
-  PRIMARY KEY (customerID),
+  PRIMARY KEY (customerID));
 insert into Customer values(10001,'Yihong Yao','989-8888','2393 robie st');
 
 
