@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS Invoice (
     REFERENCES `Customer` (`customerID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
-insert into Invoice values(20001,curdate(),10001,'ISO-30001',30,true);
+insert into Invoice values(20001,curdate(),10001,'30001',30,true);
 
 
 -- -----------------------------------------------------
