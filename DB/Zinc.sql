@@ -51,4 +51,11 @@ CREATE TABLE IF NOT EXISTS `Stock` (
     REFERENCES `Warehouse` (`warehouseID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
-insert into Stock values(30,5,'30001',40001);
+    insert into Stock values(30,5,'30001',40001);
+    insert into Stock values(20,3,'30002',40001);
+    insert into Stock values(45,3,'30003',40001);
+    insert into Stock values(25,3,'30004',40001);
+    insert into Stock values(20,3,'30005',40001); 
+    insert into Stock values(10,3,'30006',40001);
+    insert into Stock values(12,3,'30007',40001);
+    insert into Stock values(20,3,'30008',40001); 
