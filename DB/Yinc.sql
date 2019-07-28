@@ -11,15 +11,14 @@ CREATE TABLE IF NOT EXISTS `Part` (
   `partDescription` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`partID`),
   UNIQUE INDEX `partID_UNIQUE` (`partID` ASC));
-insert into Part values('30001','yinc','sleiwe');
-insert into Part values('30001','xinc','skfhsh');
-insert into Part values('30002','xinc','blue');
-insert into Part values('30003','xinc','white');
-insert into Part values('30004','xinc','red');
-insert into Part values('30005','xinc','black');
-insert into Part values('30006','xinc','green');
-insert into Part values('30007','xinc','grey');
-insert into Part values('30008','xinc','yellow');
+insert into Part values('30001','unknown','10.5','skfhsh');
+insert into Part values('30002','analog machine','30.0','blue');
+insert into Part values('30003','charging machine','4.5','white');
+insert into Part values('30004','calculator','15.0','red');
+insert into Part values('30005','ruler','2.0','black');
+insert into Part values('30006','gear','1.0','green');
+insert into Part values('30007','araloop','14.0','grey');
+insert into Part values('30008','bottle','30','yellow');
 
 -- -----------------------------------------------------
 -- Table `Warehouse`
@@ -31,7 +30,7 @@ CREATE TABLE IF NOT EXISTS `Warehouse` (
   UNIQUE INDEX `warehouseID_UNIQUE` (`warehouseID` ASC),
   PRIMARY KEY (`warehouseID`));
 
-insert into Warehouse values(40002,'y','dartmouth');
+insert into Warehouse values(40001,'y','dartmouth');
 -- -----------------------------------------------------
 -- Table `Stock`
 -- -----------------------------------------------------
