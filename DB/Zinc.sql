@@ -8,11 +8,18 @@ USE Zinc;
 CREATE TABLE IF NOT EXISTS `Part` (
   `partID` VARCHAR(45) NOT NULL,
   `partName` VARCHAR(45) NOT NULL,
+  `partPrice` VARCHAR(10) NOT NULL,
   `partDescription` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`partID`),
-  UNIQUE INDEX `partID_UNIQUE` (`partID` ASC));
+  PRIMARY KEY (`partID`));
 
-insert into Part values('30001','zinc','oweuru');
+insert into Part values('30001','unknown','10.5','skfhsh');
+insert into Part values('30002','analog machine','30.0','blue');
+insert into Part values('30003','charging machine','4.5','white');
+insert into Part values('30004','calculator','15.0','red');
+insert into Part values('30005','ruler','2.0','black');
+insert into Part values('30006','gear','1.0','green');
+insert into Part values('30007','araloop','14.0','grey');
+insert into Part values('30008','bottle','30','yellow');
 -- -----------------------------------------------------
 -- Table `Warehouse`
 -- -----------------------------------------------------
