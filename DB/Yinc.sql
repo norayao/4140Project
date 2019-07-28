@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS `Part` (
   `partDescription` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`partID`),
   UNIQUE INDEX `partID_UNIQUE` (`partID` ASC));
-insert into Part values('ISO-30001','yinc','sleiwe');
+insert into Part values('30001','yinc','sleiwe');
 
 -- -----------------------------------------------------
 -- Table `Warehouse`
@@ -45,4 +45,4 @@ CREATE TABLE IF NOT EXISTS `Stock` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
 
-insert into Stock values(30,5,'ISO-30001',40001);
+insert into Stock values(30,5,'30001',40001);
