@@ -10,7 +10,17 @@ CREATE TABLE IF NOT EXISTS Customer (
   customerContact VARCHAR(10) NOT NULL,
   customerAddress VARCHAR(99) NOT NULL,
   PRIMARY KEY (customerID));
-insert into Customer values(10001,'Yihong Yao','989-8888','2393 robie st');
+INSERT INTO `Customer` (`customerID`, `customerName`, `customerContact`, `customerAddress`) VALUES
+(10001, 'Yihong Yao', '989-8888', '2393 robie st'),
+(10002, 'Yu Zhang', '480-2500', '4563 robie st'),
+(10003, 'Jiaqi Guo', '920-6666', '1115 tower rd'),
+(10004, 'Harry Potter', '950-3456', '1070 spring garden rd'),
+(10005, 'Peter Zan', '968-1234', '1090 robie st'),
+(10006, 'Jessie Liu', '483-2457', '2566 Shopping center'),
+(10007, 'Ruby Wang', '989-7777', '2090 robie st'),
+(10008, 'Lura Zhang', '488-8534', '2233 tower rd'),
+(10009, 'Alex Potter', '989-5612', '2037 university ave'),
+(10010, 'Felix Zhang', '986-0021', '961 summer rd');
 
 
 -- -----------------------------------------------------
@@ -31,5 +41,14 @@ CREATE TABLE IF NOT EXISTS Invoice (
     ON UPDATE NO ACTION);
 insert into Invoice values(20001,curdate(),10001,'ISO-30001',30,true);
 
+
+-- -----------------------------------------------------
+-- Table `Logs`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `Logs` (
+  `logID` INT NOT NULL AUTO_INCREMENT,
+  `logOperation` VARCHAR(45) NOT NULL,
+  `logState` VARCHAR(10) NOT NULL,
+  PRIMARY KEY (`logID`));
 
 
