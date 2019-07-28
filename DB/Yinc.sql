@@ -8,9 +8,10 @@ USE Yinc;
 CREATE TABLE IF NOT EXISTS `Part` (
   `partID` VARCHAR(45) NOT NULL,
   `partName` VARCHAR(45) NOT NULL,
+  `partPrice` VARCHAR(10) NOT NULL,
   `partDescription` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`partID`),
-  UNIQUE INDEX `partID_UNIQUE` (`partID` ASC));
+  PRIMARY KEY (`partID`));
+
 insert into Part values('30001','unknown','10.5','skfhsh');
 insert into Part values('30002','analog machine','30.0','blue');
 insert into Part values('30003','charging machine','4.5','white');
