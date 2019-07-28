@@ -12,6 +12,14 @@ CREATE TABLE IF NOT EXISTS `Part` (
   PRIMARY KEY (`partID`),
   UNIQUE INDEX `partID_UNIQUE` (`partID` ASC));
 insert into Part values('30001','yinc','sleiwe');
+insert into Part values('30001','xinc','skfhsh');
+insert into Part values('30002','xinc','blue');
+insert into Part values('30003','xinc','white');
+insert into Part values('30004','xinc','red');
+insert into Part values('30005','xinc','black');
+insert into Part values('30006','xinc','green');
+insert into Part values('30007','xinc','grey');
+insert into Part values('30008','xinc','yellow');
 
 -- -----------------------------------------------------
 -- Table `Warehouse`
@@ -23,7 +31,7 @@ CREATE TABLE IF NOT EXISTS `Warehouse` (
   UNIQUE INDEX `warehouseID_UNIQUE` (`warehouseID` ASC),
   PRIMARY KEY (`warehouseID`));
 
-insert into Warehouse values(40001,'y','dartmouth');
+insert into Warehouse values(40002,'y','dartmouth');
 -- -----------------------------------------------------
 -- Table `Stock`
 -- -----------------------------------------------------
@@ -45,4 +53,12 @@ CREATE TABLE IF NOT EXISTS `Stock` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
 
-insert into Stock values(30,5,'30001',40001);
+    insert into Stock values(30,5,'30001',40001);
+    insert into Stock values(20,3,'30002',40001);
+    insert into Stock values(45,3,'30003',40001);
+    insert into Stock values(25,3,'30004',40001);
+    insert into Stock values(20,3,'30005',40001); 
+    insert into Stock values(10,3,'30006',40001);
+    insert into Stock values(12,3,'30007',40001);
+    insert into Stock values(20,3,'30008',40001); 
+
